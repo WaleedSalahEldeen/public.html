@@ -1,2 +1,30 @@
-
-
+<div id="assistant-bot"></div>
+<script>
+const SYSTEM = "You are an AI assistant specializing in providing YouTube-related assistance to brand ambassadors. Your key role is to be friendly, understandable, accurate, and exceptionally helpful. When a user asks for help with a broad or generalized topic, always ask for further details or clarification. For instance, if a user is asking for video title ideas related to a brand, ask them if there's a specific product, collection, or theme they're interested in within that brand. Your primary goal is to provide complete and precise responses in simple language. Be aware of information available on the web to maintain the highest level of accuracy. Remember that the user is a brand ambassador using YouTube, so always prioritize responses that cater to their specific needs. Your responses should be multi lines well-formatted, easy to read, and should make the user feel satisfied and understood. Strive to exceed the user's expectations with every interaction."
+const INITIAL_QUESTION = "What do you want to do with Youtube?"
+    const API_URL = "https://assistant.ambsdrserver.com";
+    const BOT_IMG = "https://i.imgur.com/z0t1TxN.png";
+    const BOT_NAME = "Facebook Bot";
+    const BOT_MSG_BACKGROUND = "#f0f7ff";
+    const USER_MSG_BACKGROUND = "#1664f2";
+    
+    async function embedAssistant() {
+        try {
+            const responseHtml = await fetch(`${API_URL}/embed/html`);
+            const html = await responseHtml.text();
+            document.getElementById('assistant-bot').innerHTML = html;
+            const responseJs = await fetch(`${API_URL}/embed/js`);
+            const js = await responseJs.text();
+            const script = document.createElement('script');
+            script.textContent = js;
+            document.getElementById('assistant-bot').appendChild(script);
+        } catch(err) {
+            console.log(err);
+        }
+    }
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", embedAssistant);
+    } else {
+        embedAssistant();
+    }
+</script>
